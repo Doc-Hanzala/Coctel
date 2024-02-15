@@ -20,6 +20,14 @@ const Error = () => {
       </Wrapper>
     );
   }
+
+  return (
+    <Wrapper>
+      <div className="img-container">
+        <h3>somthing went wrong</h3>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
@@ -49,6 +57,9 @@ const Wrapper = styled.div`
   p {
     margin: 2rem 0;
     color: #5a5a5a;
+  }
+  h3 {
+    margin-top: 4rem;
   }
 `;
 

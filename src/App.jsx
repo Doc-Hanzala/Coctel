@@ -4,6 +4,7 @@ import Cocktail from "./Pages/Cocktail/Cocktail";
 import Error from "./Pages/Error/Error";
 import Landing from "./Pages/Landing/Landing";
 import HomeLayout from "./Pages/HomeLayout/HomeLayout";
+import { loader as landingLoader } from "./Pages/Landing/Landing";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    errorElement:<Error/>,
+    errorElement: <Error />,
     children: [
       {
         path: "about",
@@ -27,12 +28,11 @@ const router = createBrowserRouter([
       },
       {
         index: true,
+        loader:landingLoader,
         element: <Landing />,
       },
     ],
   },
-
- 
 ]);
 
 function App() {
