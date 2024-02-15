@@ -5,8 +5,10 @@ import Error from "./Pages/Error/Error";
 import Landing from "./Pages/Landing/Landing";
 import HomeLayout from "./Pages/HomeLayout/HomeLayout";
 import { loader as landingLoader } from "./Pages/Landing/Landing";
+import SinglepageError from "./Pages/SinglePageError/SinglepageError";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,7 @@ const router = createBrowserRouter([
       },
       {
         index: true,
+        errorElement:<SinglepageError/>,
         loader:landingLoader,
         element: <Landing />,
       },
