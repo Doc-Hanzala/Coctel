@@ -9,7 +9,6 @@ import SinglepageError from "./Pages/SinglePageError/SinglepageError";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,13 +24,13 @@ const router = createBrowserRouter([
         element: <Newsletter />,
       },
       {
-        path: "cocktail",
+        path: "cocktail/:id",
         element: <Cocktail />,
       },
       {
         index: true,
-        errorElement:<SinglepageError/>,
-        loader:landingLoader,
+        errorElement: <SinglepageError />,
+        loader: landingLoader,
         element: <Landing />,
       },
     ],

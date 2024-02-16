@@ -1,8 +1,12 @@
-import { Outlet } from "react-router-dom";
+import Loader from "../../Components/Loader";
+
+import { Outlet, useNavigation } from "react-router-dom";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const HomeLayout = () => {
+  const { state } = useNavigation();
+  const isPageLoading = state === "loading";
   return (
     <div>
       <Wrapper>
@@ -25,7 +29,7 @@ const HomeLayout = () => {
           </div>
         </nav>
       </Wrapper>
-      <Outlet />
+      {isPageLoading ? <Loader /> : <Outlet />}
     </div>
   );
 };

@@ -13,3 +13,36 @@ body {
 .active {
   color: orangered;
 }
+
+.btn {
+  text-decoration: none;
+  letter-spacing: 1px;
+  color: white;
+  background: orangered;
+  padding: 0.3rem 0.6rem;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background: rgb(146, 42, 1);
+}
+
+.loader {
+  height: 200px;
+  width: 200px;
+  border: 5px solid black;
+  border-radius: 50%;
+  animation: spin 1s infinite;
+  border-top: 5px solid red;
+  margin: 5rem auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
