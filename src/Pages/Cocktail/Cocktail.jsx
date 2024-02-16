@@ -7,9 +7,7 @@ const singleCocktail =
 
 export const loader = async ({ params }) => {
   const id = params.id;
-
   const { data } = await axios.get(`${singleCocktail}${id}`);
-
   return { id, drink: data.drinks[0] };
 };
 
