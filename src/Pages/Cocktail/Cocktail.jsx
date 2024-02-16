@@ -9,12 +9,13 @@ export const loader = async ({ params }) => {
   const id = params.id;
 
   const { data } = await axios.get(`${singleCocktail}${id}`);
-  console.log(data.drinks[0]);
+
   return { id, drink: data.drinks[0] };
 };
 
 const Cocktail = () => {
   const { id, drink } = useLoaderData();
+
   const {
     strDrink: name,
     strCategory: category,
@@ -23,6 +24,14 @@ const Cocktail = () => {
     strDrinkThumb: img,
     strInstructionsIT: instructions,
   } = drink;
+
+  const validIng = Object.keys(drink)
+    .filter((item) => {
+      return item.startsWith("strIngredient") && drink[item] !== null;
+    })
+    .map((key) => drink[key])
+    .join(",");
+  console.log(validIng);
 
   return (
     <Wrapper>
@@ -48,6 +57,9 @@ const Cocktail = () => {
           </p>
           <p>
             <span className="ctg">glass : </span> {glass}
+          </p>
+          <p>
+            <span className="ctg">Ingredients : </span> {validIng}
           </p>
           <p>
             <span className="ctg">instructions : </span> {instructions}
