@@ -4,8 +4,9 @@ import Cocktail from "./Pages/Cocktail/Cocktail";
 import Error from "./Pages/Error/Error";
 import Landing from "./Pages/Landing/Landing";
 import HomeLayout from "./Pages/HomeLayout/HomeLayout";
-import { loader as landingLoader } from "./Pages/Landing/Landing";
 import SinglepageError from "./Pages/SinglePageError/SinglepageError";
+import { loader as landingLoader } from "./Pages/Landing/Landing";
+import { loader as cocktailLoader } from "./Pages/Cocktail/Cocktail";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -26,6 +27,8 @@ const router = createBrowserRouter([
       {
         path: "cocktail/:id",
         element: <Cocktail />,
+        errorElement: <SinglepageError />,
+        loader: cocktailLoader,
       },
       {
         index: true,

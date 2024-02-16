@@ -12,7 +12,7 @@ const CocktailCard = ({ id, drink, glass, img, alcoholic }) => {
           <h4>{drink}</h4>
           <h5>{glass}</h5>
           <p>{alcoholic}</p>
-          <Link to={`/cocktail${id}`} className="btn">
+          <Link to={`/cocktail/${id}`} className="btn">
             details
           </Link>
         </div>

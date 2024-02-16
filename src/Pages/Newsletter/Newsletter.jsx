@@ -29,7 +29,11 @@ const Newsletter = () => {
         </div>
         <div className="form-control">
           <label>email</label>
-          <input value={email} type="email" />
+          <input
+            value={email}
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
       </form>
     </Wrapper>
