@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom";
 import styled from "styled-components";
@@ -5,14 +6,31 @@ import styled from "styled-components";
 const singleCocktail =
   "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
 
-export const loader = async ({ params }) => {
-  const id = params.id;
-  const { data } = await axios.get(`${singleCocktail}${id}`);
-  return { id, drink: data.drinks[0] };
-};
+function singledrinkQuery(id) {
+  return {
+    queryKey: ["drink", id],
+    queryFn: async () => {
+      const { data } = await axios.get(`${singleCocktail}${id}`);
+      return data;
+    },
+  };
+}
+
+export const loader =
+  (queryClient) =>
+  async ({ params }) => {
+    const id = params.id;
+    // const { data } = await axios.get(`${singleCocktail}${id}`);
+    await queryClient.ensureQueryData(singledrinkQuery(id));
+    return { id };
+  };
 
 const Cocktail = () => {
-  const { id, drink } = useLoaderData();
+  const { id } = useLoaderData();
+  const { data } = useQuery(singledrinkQuery(id));
+
+  const singleDrink = data?.drinks[0];
+  console.log(singleDrink);
 
   const {
     strDrink: name,
@@ -21,15 +39,14 @@ const Cocktail = () => {
     strGlass: glass,
     strDrinkThumb: img,
     strInstructionsIT: instructions,
-  } = drink;
+  } = singleDrink;
 
-  const validIng = Object.keys(drink)
+  const validIng = Object.keys(singleDrink)
     .filter((item) => {
-      return item.startsWith("strIngredient") && drink[item] !== null;
+      return item.startsWith("strIngredient") && singleDrink[item] !== null;
     })
-    .map((key) => drink[key])
+    .map((key) => singleDrink[key])
     .join(",");
-  console.log(validIng);
 
   return (
     <Wrapper>

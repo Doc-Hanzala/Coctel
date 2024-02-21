@@ -1,15 +1,33 @@
 import { useState } from "react";
 
 import styled from "styled-components";
+import { Form, redirect, useNavigation } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const newsletterUrl = "https://jsonplaceholder.typicode.com/posts";
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  const response = await axios.post(newsletterUrl, data);
+  toast.success("Subscribed");
+
+  return redirect("/");
+};
 
 const Newsletter = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("coding_doc@gmail.com");
+  const [email, setEmail] = useState("test@test.com");
+
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   return (
     <Wrapper>
-      <form className="form">
+      <Form className="form" method="POST">
         <p>our newsletter</p>
         <div className="form-control">
           <label>name</label>
@@ -17,25 +35,39 @@ const Newsletter = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             type="text"
+            name="name"
+            required
           />
         </div>
         <div className="form-control">
           <label>last name</label>
           <input
-            onChange={(e) => setLastName(e.target.name)}
             value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             type="text"
+            name="lastName"
+            required
           />
         </div>
+
         <div className="form-control">
           <label>email</label>
           <input
             value={email}
             type="email"
             onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            required
           />
         </div>
-      </form>
+        <button
+          disabled={isSubmitting}
+          type="submit"
+          className="btn submit-btn"
+        >
+          {isSubmitting ? "submitting" : "submit"}
+        </button>
+      </Form>
     </Wrapper>
   );
 };
@@ -82,6 +114,13 @@ const Wrapper = styled.div`
     background: #e4e4e4;
     border: 1px solid #cfcfcf;
     border-radius: 5px;
+  }
+
+  .submit-btn {
+    text-transform: capitalize;
+    border: 1px solid orangered;
+    letter-spacing: 1px;
+    margin-top: 0.5rem;
   }
 `;
 
